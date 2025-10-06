@@ -1,4 +1,4 @@
-const bcryptjs = require("bcryptjs")
+const bcryptjs = require("test")
 const jwt = require("jsonwebtoken")
 
 
