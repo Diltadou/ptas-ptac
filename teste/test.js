@@ -1,9 +1,9 @@
-const request = require("supertest"); // supertest
-const app = require("../back-end/app"); // app Express
+const request = require("supertest");
+const app = require("../back-end/app");
 const { PrismaClient } = require("@prisma/client");
 const client = new PrismaClient();
 
-// Limpa o banco antes dos testes (opcional)
+
 beforeAll(async () => {
   await client.usuario.deleteMany();
 });

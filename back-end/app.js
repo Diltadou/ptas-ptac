@@ -23,5 +23,5 @@ app.post("/soma", (req, res) => {
 const UsuariosRoutes = require("./routes/UsuarioRoute"); // ajuste o caminho se necessário
 app.use("/usuarios", UsuariosRoutes); // prefixo "/usuarios"
 
-// **Não chamar app.listen aqui**, exporta apenas o app
+
 module.exports = app;
