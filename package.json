@@ -20,14 +20,16 @@
   },
   "homepage": "https://github.com/Diltadou/ptas-ptac#readme",
   "dependencies": {
-    "@prisma/client": "^6.16.2",
+    "@prisma/client": "^6.16.3",
+    "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "init": "^0.1.2",
-    "prisma": "^6.16.2",
+    "jsonwebtoken": "^9.0.2",
     "supertest": "^7.1.4"
   },
   "devDependencies": {
-    "jest": "^30.2.0"
+    "jest": "^30.2.0",
+    "prisma": "^6.16.3"
   }
 }
