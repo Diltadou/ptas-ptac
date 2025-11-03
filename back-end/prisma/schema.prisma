@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   ="../generated/prisma"
 }
 
 datasource db {
@@ -8,18 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Veiculo{
-id Int @id @default(autoincrement())
-placa String
-modelo String
-cor String
-ano Int
+model Usuario {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  email     String  @unique
+  password  String
 }
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  categorie CategoriesOnPost[]
+}
+model category {
+  id        Int     @id @default(autoincrement())
+  name      String
+  posts     CategoriesOnPost[]
+}
+model CategoriesOnPost {
+  post         Post   @relation(fields: [postId], references: [id])
+  postId       Int
+  category     category @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  assignedAt   DateTime @default[now{}]
+  assignedBy   String  
 
-model Usuario{
-id Int @id @default(autoincrement())
-nome String
-email String @unique 
-senha String
-isAdmin Boolean @default(false)
+  @@id{[postId, categoryId]}
 }
