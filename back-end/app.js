@@ -4,11 +4,11 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rotas de teste
+// Rotas de teste simples
 app.get("/hello", (req, res) => res.json({ msg: "Hello World" }));
 
 app.post("/soma", (req, res) => {
@@ -20,8 +20,7 @@ app.post("/soma", (req, res) => {
 });
 
 // Rotas de usuários
-const UsuariosRoutes = require("./routes/UsuarioRoute"); // ajuste o caminho se necessário
-app.use("/usuarios", UsuariosRoutes); // prefixo "/usuarios"
-
+const UsuariosRoutes = require("./routes/UsuarioRoute");
+app.use("/usuarios", UsuariosRoutes);
 
 module.exports = app;

@@ -1,11 +1,13 @@
 {
   "name": "ptas-ptac",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Projeto Express + Prisma + JWT + Testes",
+  "main": "server.js",
+  "type": "commonjs",
   "scripts": {
+    "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -14,7 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Diltadou/ptas-ptac/issues"
   },
@@ -24,12 +25,12 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "init": "^0.1.2",
     "jsonwebtoken": "^9.0.2",
     "supertest": "^7.1.4"
   },
   "devDependencies": {
     "jest": "^30.2.0",
+    "nodemon": "^3.1.7",
     "prisma": "^6.16.3"
   }
 }

@@ -1,4 +1,4 @@
-const app = require("./back-end/app"); // importa o app configurado em app.js
+const app = require("./back-end/app");
 
 const PORT = process.env.PORT || 3000;
 

@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const UsuarioController = require("../controllers/UsuarioController");
 
-// Rota de cadastro de usuário
+// Cadastro
 router.post("/auth/cadastro", UsuarioController.cadastrar);
 
-// Rota de login
+// Login
 router.post("/auth/login", UsuarioController.login);
 
-// Rota protegida: listar usuários (somente admin)
+// Listar usuários (apenas admin)
 router.get(
   "/auth/listar",
   UsuarioController.verificarAutenticacao,

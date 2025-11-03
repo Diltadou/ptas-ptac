@@ -12,24 +12,29 @@ model Usuario {
   nome      String
   email     String  @unique
   password  String
+  tipo      String  @default("usuario") // Adiciona o campo usado no controller
 }
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  categorie CategoriesOnPost[]
-}
-model category {
-  id        Int     @id @default(autoincrement())
-  name      String
-  posts     CategoriesOnPost[]
-}
-model CategoriesOnPost {
-  post         Post   @relation(fields: [postId], references: [id])
-  postId       Int
-  category     category @relation(fields: [categoryId], references: [id])
-  categoryId   Int
-  assignedAt   DateTime @default[now{}]
-  assignedBy   String  
 
-  @@id{[postId, categoryId]}
+model Post {
+  id          Int                 @id @default(autoincrement())
+  title       String
+  categories  CategoriesOnPost[]  // Corrigido nome do campo
+}
+
+model Category {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  posts       CategoriesOnPost[]
+}
+
+// Tabela de relação N:N
+model CategoriesOnPost {
+  post         Post     @relation(fields: [postId], references: [id])
+  postId       Int
+  category     Category @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  assignedAt   DateTime @default(now())
+  assignedBy   String
+
+  @@id([postId, categoryId]) // Corrigido formato
 }

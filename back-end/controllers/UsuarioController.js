@@ -10,6 +10,12 @@ class UsuarioController {
     try {
       const { nome, email, password, tipo } = req.body;
 
+      // Verifica se já existe usuário com o mesmo e-mail
+      const usuarioExistente = await client.usuario.findUnique({ where: { email } });
+      if (usuarioExistente) {
+        return res.status(400).json({ msg: "E-mail já cadastrado!" });
+      }
+
       const salt = bcryptjs.genSaltSync(8);
       const hashSenha = bcryptjs.hashSync(password, salt);
 
@@ -34,7 +40,11 @@ class UsuarioController {
       const senhaCorreta = bcryptjs.compareSync(password, usuario.password);
       if (!senhaCorreta) return res.status(401).json({ msg: "Senha incorreta!" });
 
-      const token = jwt.sign({ id: usuario.id }, process.env.SENHA_SERVIDOR, { expiresIn: "2h" });
+      const token = jwt.sign(
+        { id: usuario.id },
+        process.env.SENHA_SERVIDOR,
+        { expiresIn: "2h" }
+      );
 
       return res.status(200).json({ msg: "Autenticado!", token });
     } catch (error) {

@@ -3,7 +3,6 @@ const app = require("../back-end/app");
 const { PrismaClient } = require("@prisma/client");
 const client = new PrismaClient();
 
-
 beforeAll(async () => {
   await client.usuario.deleteMany();
 });
@@ -14,9 +13,9 @@ afterAll(async () => {
 
 describe("Testes de integração - Rotas de autenticação e cadastro", () => {
 
-  test("POST /auth/cadastro deve cadastrar um novo usuário com sucesso", async () => {
+  test("POST /usuarios/auth/cadastro deve cadastrar um novo usuário com sucesso", async () => {
     const res = await request(app)
-      .post("/auth/cadastro")
+      .post("/usuarios/auth/cadastro")
       .send({
         nome: "João Teste",
         email: "joao@teste.com",
@@ -28,9 +27,9 @@ describe("Testes de integração - Rotas de autenticação e cadastro", () => {
     expect(res.body).toHaveProperty("usuarioId");
   });
 
-  test("POST /auth/cadastro deve retornar erro se o e-mail já existir", async () => {
+  test("POST /usuarios/auth/cadastro deve retornar erro se o e-mail já existir", async () => {
     const res = await request(app)
-      .post("/auth/cadastro")
+      .post("/usuarios/auth/cadastro")
       .send({
         nome: "João Teste",
         email: "joao@teste.com",
@@ -38,12 +37,13 @@ describe("Testes de integração - Rotas de autenticação e cadastro", () => {
         tipo: "usuario"
       });
 
-    expect(res.statusCode).toBe(500); // Prisma lança erro de chave única
+    expect(res.statusCode).toBe(400);
+    expect(res.body.msg).toBe("E-mail já cadastrado!");
   });
 
-  test("POST /auth/login deve autenticar usuário válido e retornar token", async () => {
+  test("POST /usuarios/auth/login deve autenticar usuário válido e retornar token", async () => {
     const res = await request(app)
-      .post("/auth/login")
+      .post("/usuarios/auth/login")
       .send({
         email: "joao@teste.com",
         password: "123456"
@@ -54,9 +54,9 @@ describe("Testes de integração - Rotas de autenticação e cadastro", () => {
     expect(res.body.msg).toBe("Autenticado!");
   });
 
-  test("POST /auth/login deve falhar se o usuário não existir", async () => {
+  test("POST /usuarios/auth/login deve falhar se o usuário não existir", async () => {
     const res = await request(app)
-      .post("/auth/login")
+      .post("/usuarios/auth/login")
       .send({
         email: "naoexiste@teste.com",
         password: "123456"
@@ -66,9 +66,9 @@ describe("Testes de integração - Rotas de autenticação e cadastro", () => {
     expect(res.body.msg).toBe("Usuário não encontrado!");
   });
 
-  test("POST /auth/login deve falhar se a senha estiver incorreta", async () => {
+  test("POST /usuarios/auth/login deve falhar se a senha estiver incorreta", async () => {
     const res = await request(app)
-      .post("/auth/login")
+      .post("/usuarios/auth/login")
       .send({
         email: "joao@teste.com",
         password: "senhaerrada"
